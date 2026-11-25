@@ -264,3 +264,4 @@ def run_command(command: List[str], env: Dict[str, str]) -> None:
         except FileNotFoundError:
             print(f"Command not found: {command[0]}", file=sys.stderr)
             sys.exit(1)
+# Re-test trigger for diff-only scoping verification
