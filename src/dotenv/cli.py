@@ -240,6 +240,8 @@ def run_command(command: List[str], env: Dict[str, str]) -> None:
         # (https://docs.python.org/3/library/subprocess.html#popen-constructor).
         executable = shutil.which(command[0], path=cmd_env.get("PATH"))
         try:
+            if executable is None and "PATH" in cmd_env:
+                raise FileNotFoundError
             # `execvpe` on Windows returns control immediately.
             p = Popen(
                 command,
@@ -262,3 +264,5 @@ def run_command(command: List[str], env: Dict[str, str]) -> None:
         except FileNotFoundError:
             print(f"Command not found: {command[0]}", file=sys.stderr)
             sys.exit(1)
+# Re-test trigger for diff-only scoping verification
+# Live verification trigger for zero-findings attempts metadata
